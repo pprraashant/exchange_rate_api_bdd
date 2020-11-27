@@ -13,3 +13,4 @@ Feature: Exchange Rates
     When The API is available
     Then assert the success status of the response
     Then assert the response
+    Then assert the response is expected

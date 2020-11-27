@@ -31,12 +31,21 @@ public class RateSteps {
     @Then("^assert the success status of the response$")
     public void assertStatus()
     {
+        logger.info("assert the response success status");
         response.statusCode(200).assertThat();
     }
 
     @Then("^assert the response$")
     public void assertResponse()
     {
+        logger.info("assert the response body");
+        response.body("base",notNullValue(),new Object[0]).assertThat();
+    }
+
+    @Then("^assert the response is expected$")
+    public void correctResponseValidation()
+    {
+        logger.info("assert the response is expected");
         response.body("base",equalTo("EUR"),new Object[0]).assertThat();
     }
 }
