@@ -17,10 +17,10 @@ public class RateSteps {
     PostmanExecute execute;
     ValidatableResponse response;
 
-    @When("^The API is available$")
-    public void ratesApiIsAvailable()
+    @When("The API is available \"([^\"]*)\"$")
+    public void ratesApiIsAvailable(String param)
     {
-        logger.info("executing rate api to check if it is available");
+        logger.info("executing rate api to check if it is available for: "+ param);
         execute = new PostmanExecute();
         Map<String,Object> values= new HashMap<>();
         values.put("server","api.ratesapi.io");
@@ -47,5 +47,11 @@ public class RateSteps {
     {
         logger.info("assert the response is expected");
         response.body("base",equalTo("EUR"),new Object[0]).assertThat();
+    }
+
+    @Then("assert the date \"([^\"]*)\"$")
+    public void assertTheDate(String dateToValidate) {
+        logger.info("assert the rate is available for date: "+ dateToValidate);
+        response.body("date",equalTo(dateToValidate),new Object[0]).assertThat();
     }
 }

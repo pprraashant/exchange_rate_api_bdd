@@ -9,8 +9,13 @@ Feature: Exchange Rates
 
 
   @rates
-  Scenario: Latest rate available
-    When The API is available
+  Scenario Outline: Latest rate available
+    When The API is available <param>
     Then assert the success status of the response
     Then assert the response
     Then assert the response is expected
+    Then assert the date <param1>
+    Examples:
+      |   param     |   param1      |
+      | "latest"    | "2020-11-26"  |
+      | "2020-11-27"| "2020-11-27"  |
